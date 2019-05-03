@@ -1,7 +1,7 @@
 import numpy as np
 
 from .coupled_optimizer_augmented import JointOptimizerAug
-from .batch_optimizer import BatchOptimizer
+from .batch_optimizer import BatchBayesOptimizer
 import utils
 
 class JointBatchOptimizer(JointOptimizerAug):
@@ -33,7 +33,7 @@ class JointBatchOptimizer(JointOptimizerAug):
                       bounds_cn, n_cn, contextual, uc_to_return,
                       start_with_x=co_x, start_with_y=co_y)
 
-        self.hw_optimizer = BatchOptimizer(self.eval_hw, n_cn, bounds_cn,
-                                           batch_size, init_cn,
-                                           start_with_x=bo_x,
-                                           start_with_y=bo_y)
+        self.hw_optimizer = BatchBayesOptimizer(self.eval_hw, n_cn, bounds_cn,
+                                                batch_size, init_cn,
+                                                start_with_x=bo_x,
+                                                start_with_y=bo_y)

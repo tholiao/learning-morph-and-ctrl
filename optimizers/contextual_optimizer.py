@@ -3,16 +3,16 @@ from scipy.optimize import minimize
 
 import numpy as np
 
-from .single_optimizer import Optimizer
+from .bayes_optimizer import BayesOptimizer
 
 
-class ContextualOptimizer(Optimizer):
+class ContextualBayesOptimizer(BayesOptimizer):
     def __init__(self, obj_f, num_inputs, num_contexts, bounds):
-        super(ContextualOptimizer, self).__init__(obj_f=obj_f,
-                                                  num_inputs=num_inputs
+        super(ContextualBayesOptimizer, self).__init__(obj_f=obj_f,
+                                                       num_inputs=num_inputs
                                                              + num_contexts,
-                                                  bounds=bounds,
-                                                  n_init=0)
+                                                       bounds=bounds,
+                                                       n_init=0)
 
     def optimize_acq_f(self, context):
         def obj_sw_DIRECT(x, user_data):
@@ -26,8 +26,8 @@ class ContextualOptimizer(Optimizer):
         return np.array(minimize(obj_sw_LBFGS, x, method='L-BFGS-B',
                                  bounds=self.reformat_bounds(self.bounds)).x)
 
-    def optimize(self, context, n_iterations):
-        for i in range(n_iterations):
+    def optimize(self, context, total):
+        for i in range(total):
             self.update_iterations(i)
 
             X = self.optimize_acq_f()

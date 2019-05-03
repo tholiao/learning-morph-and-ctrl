@@ -21,11 +21,16 @@ Experiments can be run either locally or via Docker.
 
 ### Running locally
 First, start V-REP running locally. Then use `main.py` to call the relevant
-experiment.
+experiment, for example:
 ```
-python main.py 5 5 5 50 100 1 
+python main.py hpcbbo --init_uc=5 --init_cn=5 --uc_runs_per_cn=5 \
+                      --batch_size=5 --total=5 --obj_f=1 --contextual
 ```
-Call `python main.py -h` for an explanation of the parameters
+Or
+```
+python main.py random --init_uc=5 --total=5 --obj_f=1
+```
+Call `python main.py -h` for additional help
 
 
 ### Running on Docker

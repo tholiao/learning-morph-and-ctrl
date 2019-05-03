@@ -2,22 +2,22 @@ import time
 
 import numpy as np
 
-from .single_optimizer import Optimizer
+from .bayes_optimizer import BayesOptimizer
 
 
-class BatchOptimizer(Optimizer):
+class BatchBayesOptimizer(BayesOptimizer):
     def __init__(self, obj_f, num_inputs, bounds, batch_size, n_init,
                  start_with_x=None, start_with_y=None):
-        super(BatchOptimizer, self).__init__(obj_f, num_inputs, bounds, n_init,
-                                             start_with_x=start_with_x,
-                                             start_with_y=start_with_y)
+        super(BatchBayesOptimizer, self).__init__(obj_f, num_inputs, bounds, n_init,
+                                                  start_with_x=start_with_x,
+                                                  start_with_y=start_with_y)
         self.batch_size = batch_size
 
-    def optimize(self, n_iterations):
+    def optimize(self, total):
         if self.model is None:
             self.initialize_GP(self.n_init)
 
-        for i in range(n_iterations // self.batch_size):
+        for i in range(total // self.batch_size):
             print("Batch #", i)
             B_x = np.zeros((self.batch_size, self.num_inputs))
             B_y = np.zeros((self.batch_size, 1))

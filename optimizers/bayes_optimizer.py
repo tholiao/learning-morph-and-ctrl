@@ -8,7 +8,7 @@ from DIRECT import solve
 from scipy.optimize import minimize
 
 
-class Optimizer(object):
+class BayesOptimizer(object):
     def __init__(self, obj_f, num_inputs, bounds, n_init, start_with_x=None,
                  start_with_y=None, log=False):
         """
@@ -88,11 +88,11 @@ class Optimizer(object):
     def restore(self):
         self.x = np.load()
 
-    def optimize(self, n_iterations):
+    def optimize(self, total):
         if self.model is None:
             self.initialize_GP(self.n_init)
 
-        for i in range(n_iterations):
+        for i in range(total):
             self.update_iterations()
 
             X = self.optimize_acq_f()

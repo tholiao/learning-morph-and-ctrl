@@ -4,10 +4,10 @@ import time
 from DIRECT import solve
 from scipy.optimize import minimize
 
-from .coupled_optimizer import JointOptimizer
+from .coupled_optimizer import JointBayesOptimizer
 
 
-class JointOptimizerAug(JointOptimizer):
+class JointOptimizerAug(JointBayesOptimizer):
     def __init__(self, obj_f, n_uc, init_uc, bounds_uc, uc_runs_per_cn, init_cn,
                  bounds_cn, n_cn, contextual=True, uc_to_return='max',
                  start_with_x=None, start_with_y=None):

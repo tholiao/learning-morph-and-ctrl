@@ -4,10 +4,10 @@ import time
 from DIRECT import solve
 from scipy.optimize import minimize
 
-from .single_optimizer import Optimizer
+from .bayes_optimizer import BayesOptimizer
 
 
-class JointOptimizer(Optimizer):
+class JointBayesOptimizer(BayesOptimizer):
     def __init__(self, obj_f, n_uc, init_uc, bounds_uc, uc_runs_per_cn, init_cn,
                  bounds_cn, n_cn, contextual=True, uc_to_return='max',
                  start_with_x=None, start_with_y=None):
@@ -25,13 +25,13 @@ class JointOptimizer(Optimizer):
         :param contextual: whether the inner loop should share GP's across runs
         """
 
-        super(JointOptimizer, self).__init__(obj_f, n_cn + n_uc, bounds_uc,
-                                             init_cn, start_with_x,
-                                             start_with_y)
+        super(JointBayesOptimizer, self).__init__(obj_f, n_cn + n_uc, bounds_uc,
+                                                  init_cn, start_with_x,
+                                                  start_with_y)
 
         self.n_cn = n_cn
         self.init_cn = init_cn
-        self.hw_optimizer = Optimizer(self.eval_hw, n_cn, bounds_cn, init_cn)
+        self.hw_optimizer = BayesOptimizer(self.eval_hw, n_cn, bounds_cn, init_cn)
 
         self.uc_runs_per_cn = uc_runs_per_cn
         self.init_uc = init_uc
@@ -135,13 +135,13 @@ class JointOptimizer(Optimizer):
 
         return self.select_y_to_return()
 
-    def optimize(self, outer_loop):
+    def optimize(self, total):
         """
-        :param outer_loop:
+        :param total:
         :param inner_loop: Determines number of loops inner software
         optimization will do each time it's called by hw_optimizer
         """
-        self.hw_optimizer.optimize(outer_loop)
+        self.hw_optimizer.optimize(total)
 
     def optimize_acq_f(self, x_cn):
         def obj_sw_DIRECT(x_uc, user_data):
