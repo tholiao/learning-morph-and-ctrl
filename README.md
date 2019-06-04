@@ -54,3 +54,14 @@ Data-efficient Learning of Morphology and Controller for a Microrobot.
 In IEEE Int. Conf on Robotics and Automatation, ICRA '19, Montreal, Canada, May
 2019. 
 ```
+
+bibtex:
+```
+@inproceedings{liao2019,
+  title                 = {Data-efficient Learning of Morphology and Controller for a Microrobot},
+  author                = {Liao, Thomas and Wang, Grant and Yang, Brian and Lee, Rene and Pister, Kristofer and Levine, Sergey and Calandra, Roberto},
+  booktitle             = {2019 IEEE International Conference on Robotics and Automation},
+  year                  = {2019},
+  url                   = {https://arxiv.org/abs/1905.01334}
+}
+```
