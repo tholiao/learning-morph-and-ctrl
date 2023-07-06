@@ -1,5 +1,5 @@
 numpy == 1.11
-scipy == 0.18
+scipy == 1.10.0
 GPy == 1.6.1
 dotmap
 direct
